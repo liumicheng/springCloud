@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+<form action="/update" method="post">
+    <input type="hidden" name="id" value="1"><br>
+    姓名：<input type="text" name="name" value="bgg"><br>
+    性别：<input type="text" name="sex" value="男"><br>
+    年龄：<input type="text" name="age" value="23">
+    <input type="submit" value="提交">
+</form>
+
+<br><br><br>
+
+<a href="/bgg/TestModelAndView">TestModelAndView</a><br><br>
+
+<a href="/TestJson">TestJson</a>
+
+<form action="/TestFile" method="post">
+    文件：<input type="file" name="file"><br>
+    备注：<input type="text" name="beizu"><br>
+    <input type="submit" value="提交"><br>
+</form>
+<br><br><br>
+<a href="/TestExceptionHandler?id=10">TestExceptionHandler</a><br>
+
+</body>
+</html>

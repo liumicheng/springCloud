@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.springboot.Dao.SjldDao">
+    <select id="queryProvince" resultType="com.boot.springboot.Entity.Province">
+        select * from province;
+    </select>
+    <select id="queryCity" parameterType="integer" resultType="com.boot.springboot.Entity.City">
+        select * from city where provinceID = #{provinceID};
+    </select>
+    <select id="queryCounty" parameterType="integer" resultType="com.boot.springboot.Entity.County">
+        select * from county where cityID = #{cityID};
+    </select>
+    <select id="queryCountyById" parameterType="integer" resultType="com.boot.springboot.Entity.County">
+        select * from county where countyID = #{countyID};
+    </select>
+</mapper>
+

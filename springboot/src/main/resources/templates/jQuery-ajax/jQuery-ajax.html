@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax</title>
+    <script src="jquery-3.4.1.js"></script>
+    <script src="jquery.blockUI.js"></script>
+    <script type="text/javascript">
+        $(function(){
+
+            $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+
+            $(".a1").click(function () {
+                var url = this.href;
+                $.ajax({
+                    type:"get",
+                    url:url,
+                    contentType:"application/json;charset=utf-8",
+                    data:{},
+                    success:function (data) {
+                        var name = data.name;
+                        //清空数据
+                        $("#AB").html('');
+                        $("#AB").append("<h2>" + name + "</h2>");
+                    },
+                    error:function () {
+                        window.alert("查询失败");
+                    }
+                });
+                return false;
+            });
+
+
+            $("#name").change(function () {
+                var name = $(this).val();
+                var name = $.trim(name);
+                if (name != ""){
+                    $.ajax({
+                        type:"post",
+                        url:"/ajaxJiaoYan",
+                        contentType:"application/json;charset=utf-8",
+                        data:JSON.stringify({"name":name}),
+                        // contentType: "application/json",
+                        // dataType: "json",
+                        success:function (data) {
+                            var state = data.state;
+                            if (state){
+                                //清空数据
+                                $("#massage").html('');
+                                $("#massage").append("<b style='color: red'>用户名已存在</b>");
+                            }else{
+                                //清空数据
+                                $("#massage").html('');
+                                $("#massage").append("<b style='color: green'>用户名未重复</b>");
+                            }
+                        },
+                        error:function () {
+                            window.alert("失败");
+                        }
+                    });
+                }
+            });
+
+
+
+            $(".book").click(function () {
+                var url = this.href;
+                $.ajax({
+                    type:"get",
+                    url:url,
+                    //contentType:"application/json;charset=utf-8",
+                    //data:{},
+                    success:function (data) {
+                        //清空
+                        $("#carMessge").html('');
+                        $("#carMessge").append("<spen>您添加了"+ data.bookName +"书，购物车中共有"+data.bookSum +"本书，总价为"+data.price +"元。"+"</spen> <br>")
+                    },
+                    error:function () {
+                        window.alert("添加失败");
+                    }
+                });
+                return false;
+            });
+
+
+            <!-- 先查省份-->
+            $.ajax({
+                type:"get",
+                url:"/queryProvince",
+                contentType:"application/json;charset=utf-8",
+                data:{},
+                success:function (data) {
+                    $.each(data,function (index,item) {
+                        $("#province").append(new Option(item.name,item.provinceID));
+                    });
+                }
+            });
+            
+            $("#province").change(function () {
+                //先清空添加的
+                $("#city option:not(:first)").remove();
+                $("#county option:not(:first)").remove();
+                $("#countys").css({ 'display': "none" });
+                //获取id
+                var provinceID = $("#province option:selected").val();
+                var name = $(this).val();
+                if (name != ""){
+                    $.ajax({
+                        type:"get",
+                        url:'/queryCity/'+provinceID,
+                        contentType:"application/json;charset=utf-8",
+                       // data:JSON.stringify({"provinceID":provinceID}),
+                        // contentType: "application/json",
+                        // dataType: "json",
+                        success:function (data) {
+                            $.each(data,function (name,item) {
+                                $("#city").append(new Option(item.name,item.cityID));
+                            })
+                        },
+                        error:function () {
+                            window.alert("失败");
+                        }
+                    });
+                }
+            });
+
+
+            $("#city").change(function () {
+                //先清空添加的
+                $("#county option:not(:first)").remove();
+                $("#countys").css({ 'display': "none" });
+                //获取id
+                var cityID = $("#city option:selected").val();
+                var name = $(this).val();
+                if (name != ""){
+                    $.ajax({
+                        type:"get",
+                        url:"/queryCounty/"+cityID,
+                        contentType:"application/json;charset=utf-8",
+                        //data:JSON.stringify({"cityID":cityID}),
+                        success:function (data) {
+                            $.each(data,function (name,item) {
+                                $("#county").append(new Option(item.name,item.countyID));
+                            })
+                        },
+                        error:function () {
+                            window.alert("失败");
+                        }
+                    });
+                }
+            });
+
+
+
+            $("#county").change(function () {
+                $("#countyName p").remove();
+                $("#personNum p").remove();
+                $("#countys").css({ 'display': "none" });
+                //获取id
+                var countyID = $("#county option:selected").val();
+                var name = $(this).val();
+                if (name != ""){
+                    $.ajax({
+                        type:"get",
+                        url:"/queryCountyById/"+countyID,
+                        contentType:"application/json;charset=utf-8",
+                        //data:JSON.stringify({"cityID":cityID}),
+                        success:function (data) {
+                            $("#countyName").append("<p>"+data.name+"</p>");
+                            $("#personNum").append("<p>"+data.personNum+"</p>");
+                            $("#countys").css({ 'display': "block" });
+                        },
+                        error:function () {
+                            window.alert("失败");
+                        }
+                    });
+                }
+            });
+
+
+        });
+    </script>
+</head>
+<body>
+    <a  href="/jQueryAjax_A" class="a1">A</a><br>
+    <a href="/jQueryAjax_B" class="a1">B</a><br>
+    <div id="AB"></div>
+    用户名：<input type="text" name="name" id="name">
+    <span id="massage"></span><br><br>
+
+    购物车：<br>
+    <div id="carMessge"></div>
+<!--    您添加了<span id="bookName"></span>书,购物车中共有<spen id="bookSum"></spen>本书，总价为<spen id="price"></spen>元。<br>-->
+    JAVA:<a href="/shoppingCar/?bookName=JAVA&price=10" class="book">添加</a>
+    ORACLE:<a href="/shoppingCar?bookName=ORACLE&price=20" class="book">添加</a>
+    MYSQL:<a href="/shoppingCar?bookName=MYSQL&price=30" class="book">添加</a>
+    <br><br><br><br><br>
+
+    Province:
+    <select id="province" >
+    <option value="">请选择</option>
+    </select>
+    &nbsp&nbsp&nbsp&nbsp
+    City:
+    <select id="city">
+        <option value="">请选择...</option>
+    </select>
+    &nbsp&nbsp&nbsp&nbsp
+    County:
+    <select id="county">
+        <option value="">请选择...</option>
+    </select>
+    <br><br><br><br><br>
+
+    <table id="countys" border="1" cellspacing="0" cellpadding="5" width="400px" style="display: none">
+        <tr>
+            <th>县名</th>
+            <th>人口</th>
+        </tr>
+        <tr>
+            <td id="countyName"></td>
+            <td id="personNum"></td>
+        </tr>
+    </table>
+
+</body>
+</html>

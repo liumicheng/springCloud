@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>list</title>
+</head>
+<style>
+    .div1{
+        width: 500px;
+        margin: auto;
+        font-size: 20px;
+    }
+</style>
+<body>
+    <div class="div1">
+        <div>
+            <h2 align="center">员  工  页  面</h2>
+            <a href="#" th:href="@{/emp}">
+                <button class="btn btn-small btn-success">添加</button>
+            </a>
+            <table border="1" cellspacing="0" cellpadding="15" width="500">
+                <thead align="center">
+                    <td>姓名</td>
+                    <td>年龄</td>
+                    <td>性别</td>
+                    <td>操作</td>
+                </thead>
+                <tbody>
+
+                </tbody>
+                    <tr align="center" th:each="list : ${emps}">
+                        <td th:text="${list.getName()}"></td>
+                        <td th:text="${list.getAge()}"></td>
+                        <td th:text="${list.getSex()}"></td>
+                        <td>
+                            <a href="#" th:href="@{/emp/}+${list.getId()}">
+                                <button class="btn  btn-small btn-primary">编辑</button>
+                            </a>
+                            <form th:action="@{/emp/}+${list.getId()}" method="post">
+                                <input type="hidden" name="_method" value="delete">
+                                <button type="submit" class="btn btn-small btn-danger">删除</button>
+                            </form>
+                        </td>&nbsp;&nbsp;&nbsp;
+                    </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>add</title>
+</head>
+<body>
+    <div align="center">
+        <div>
+            <h3>修改员工信息</h3>
+            <form action="/emp"method="post">
+                <input type="hidden" name="_method" value="put">
+                <input type="hidden" name="id" th:value="${emp.getId()}">
+                <input type="text" name="name" placeholder="姓名" th:value="${emp.getName()}"><br>
+                <input type="text" name="age" placeholder="年龄" th:value="${emp.getAge()}"><br>
+                <input type="text" name="sex" placeholder="性别" th:value="${emp.getSex()}"><br>
+                <button type="submit">修改</button>
+                <button type="reset">重置</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

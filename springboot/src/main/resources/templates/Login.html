@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!-- 这句话使 thymeleaf模板引擎生效-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+<form action="/LoginMain" method="post">
+    <h1 th:text="#{Login.tip}">欢迎登录</h1>
+    <!-- 判断是否有错误信息-->
+    <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+    <input type="text" name="userName" placeholder="userName" th:placeholder="#{Login.userName}">
+    <br><br>
+    <input type="password" name="passWord" placeholder="passWord" th:placeholder="#{Login.passWord}"><br><br>
+    <button type="submit" th:text="#{Login.btn}">Login</button>
+    <p class="mt-5 mb-3 text-muted">@2019-2020</p>
+    <a class="btn btn-small" th:href="@{/Login(l='zh_CH')}">中文</a>
+    <a class="btn btn-small" th:href="@{/Login(l='en_US')}">English</a>
+</form>
+</body>
+</html>

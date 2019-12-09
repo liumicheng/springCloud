@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            var aNodes = document.getElementsByTagName("a");
+            for(var i = 0;i < aNodes.length;i++){
+                aNodes[i].onclick = function () {
+                    var request = new XMLHttpRequest();
+                    var method = "GET";
+                    var url = this.href;
+                    request.open(method,url);
+                    request.send(null);
+                    request.onreadystatechange = function () {
+
+                        if(request.readyState == 4){
+                            if(request.status == 200 || request.status == 304){
+                                //1.结果为XML格式，需要responseXML来获取
+                                var result = request.responseXML;
+                                //2.结果不能直接使用，必须先创建节点，再把节点加入到#id中
+                                //目标：<h2>name</h2>
+                                var name = result.getElementsByTagName("name")[0].firstChild.nodeValue;
+                                //3.创建节点
+                                var  h2Node = document.createElement("h2");
+                                h2Node.appendChild(document.createTextNode(name));
+                                //4.加入节点
+                                var abNode = document.getElementById("ab");
+                                abNode.appendChild(h2Node);
+                            }
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <a href="files/a.xml">a</a><br>
+    <a href="files/b.xml">b</a><br>
+    <div id="ab"></div>
+</body>
+</html>
