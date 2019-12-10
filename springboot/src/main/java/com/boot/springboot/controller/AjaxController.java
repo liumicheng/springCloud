@@ -63,7 +63,7 @@ public class AjaxController {
     }
 
 
-    //用户名是否存在
+    // 用户名是否存在
     @PostMapping("/ajaxJiaoYan")
     @ResponseBody
     public Map<String,Object> ajaxJiaoYan(@RequestBody Map<String,Object> map){
