@@ -16,6 +16,7 @@
         <module>eureka-7001</module>
         <module>eureka-7002</module>
         <module>eureka-7003</module>
+        <module>consumer-feign-8001</module>
     </modules>
 
 
