@@ -14,8 +14,8 @@
         <module>provider-8090</module>
         <module>consumer-8091</module>
         <module>eureka-7001</module>
-        <module>java-web</module>
-        <module>java-web</module>
+        <module>eureka-7002</module>
+        <module>eureka-7003</module>
     </modules>
 
 
