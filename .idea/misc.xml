@@ -23,6 +23,8 @@
         <option value="$PROJECT_DIR$/springboot-jsp/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-vue/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-redis/pom.xml" />
+        <option value="$PROJECT_DIR$/provider-8089/pom.xml" />
+        <option value="$PROJECT_DIR$/provider-8088/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

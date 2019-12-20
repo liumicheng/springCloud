@@ -13,7 +13,9 @@ import java.util.List;
 @RestController
 public class ConsumerDeptController {
 
-    private static final String REST_URL_PREFIX = "http://localhost:8090";
+    //private static final String REST_URL_PREFIX = "http://localhost:8090";
+    //通过微服务的名字访问
+    private static final String REST_URL_PREFIX = "http://springCloud-dept";
     @Autowired
     private RestTemplate restTemplate;
     @RequestMapping(value = "/consumer/dept/add",method = RequestMethod.POST)

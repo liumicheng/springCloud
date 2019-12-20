@@ -9,13 +9,15 @@
         <outputRelativeToContentRoot value="true" />
         <module name="springboot-jsp" />
         <module name="provider-8090" />
+        <module name="eureka-7002" />
         <module name="test-api" />
         <module name="consumer-8091" />
         <module name="eureka-7003" />
-        <module name="eureka-7002" />
+        <module name="provider-8088" />
         <module name="eureka-7001" />
         <module name="springboot-vue" />
         <module name="springboot-redis" />
+        <module name="provider-8089" />
         <module name="springboot" />
         <module name="mvc" />
       </profile>
