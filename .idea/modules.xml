@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/java-web/java-web.iml" filepath="$PROJECT_DIR$/java-web/java-web.iml" />
-      <module fileurl="file://$PROJECT_DIR$/provider-hystrix-8088/provider-hystrix-8088.iml" filepath="$PROJECT_DIR$/provider-hystrix-8088/provider-hystrix-8088.iml" />
     </modules>
   </component>
 </project>

@@ -10,9 +10,9 @@
     </parent>
 
     <groupId>com.example</groupId>
-    <artifactId>provider-8088</artifactId>
+    <artifactId>provider-hystrix-8088</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>provider</name>
+    <name>provider-hystrix-8088</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

@@ -11,7 +11,6 @@
         <module name="springboot-jsp" />
         <module name="provider-8090" />
         <module name="test-api" />
-        <module name="hystrix-8088" />
         <module name="consumer-feign-8001" />
         <module name="mvc" />
         <module name="consumer-8091" />
@@ -27,7 +26,6 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="javaweb" target="1.8" />
-      <module name="provider-hystrix-8088" target="1.8" />
       <module name="spring-boot" target="1.8" />
       <module name="springBoot" target="1.8" />
       <module name="test-api-8090" target="1.8" />
