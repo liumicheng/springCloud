@@ -17,6 +17,7 @@
         <module>eureka-7002</module>
         <module>eureka-7003</module>
         <module>consumer-feign-8001</module>
+        <module>provider-hystrix-8088</module>
     </modules>
 
 
