@@ -27,6 +27,7 @@
         <option value="$PROJECT_DIR$/provider-8088/pom.xml" />
         <option value="$PROJECT_DIR$/consumer-feign-8001/pom.xml" />
         <option value="$PROJECT_DIR$/provider-hystrix-8088/pom.xml" />
+        <option value="$PROJECT_DIR$/consumer-hystrix-dashboard/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
