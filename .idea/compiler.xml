@@ -7,11 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="zuul-gateway-9527" />
         <module name="springboot-vue" />
         <module name="springboot-jsp" />
         <module name="provider-8090" />
         <module name="test-api" />
         <module name="consumer-feign-8001" />
+        <module name="consumer-hystrix-dashboard" />
         <module name="mvc" />
         <module name="consumer-8091" />
         <module name="springboot" />
@@ -35,6 +37,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="consumer-8091" options="" />
       <module name="consumer-feign-8001" options="" />
+      <module name="consumer-hystrix-dashboard" options="" />
       <module name="eureka-7001" options="" />
       <module name="eureka-7002" options="" />
       <module name="eureka-7003" options="" />
@@ -48,6 +51,7 @@
       <module name="springboot-redis" options="-parameters" />
       <module name="springboot-vue" options="-parameters" />
       <module name="test-api-8090" options="" />
+      <module name="zuul-gateway-9527" options="" />
     </option>
   </component>
 </project>

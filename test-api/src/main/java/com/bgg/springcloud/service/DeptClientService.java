@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
-@FeignClient(value = "springCloud-dept")
+//@FeignClient(value = "springCloud-dept") //服务熔断
+@FeignClient(value = "springCloud-dept",fallbackFactory = DeptClientServiceFallbackFactory.class) //服务降级
 public interface DeptClientService {
     @RequestMapping(value = "/dept/add",method = RequestMethod.POST)
     public boolean add(Dept dept);
