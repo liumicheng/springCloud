@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="zuul-gateway-9527" />
         <module name="springboot-vue" />
         <module name="springboot-jsp" />
         <module name="provider-8090" />
@@ -50,6 +51,7 @@
       <module name="springboot-redis" options="-parameters" />
       <module name="springboot-vue" options="-parameters" />
       <module name="test-api-8090" options="" />
+      <module name="zuul-gateway-9527" options="" />
     </option>
   </component>
 </project>
