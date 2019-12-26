@@ -13,7 +13,6 @@
         <module name="provider-8090" />
         <module name="test-api" />
         <module name="consumer-feign-8001" />
-        <module name="consumer-hystrix-dashboard" />
         <module name="mvc" />
         <module name="consumer-8091" />
         <module name="springboot" />
@@ -23,6 +22,7 @@
         <module name="eureka-7001" />
         <module name="springboot-redis" />
         <module name="provider-8089" />
+        <module name="consumer-hystrix-dashboard" />
         <module name="provider-8088" />
       </profile>
     </annotationProcessing>
