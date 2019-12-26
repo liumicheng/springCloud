@@ -13,7 +13,7 @@
         <module name="provider-8090" />
         <module name="test-api" />
         <module name="consumer-feign-8001" />
-        <module name="consumer-hystrix-dashboard" />
+        <module name="config-server-3344" />
         <module name="mvc" />
         <module name="consumer-8091" />
         <module name="springboot" />
@@ -23,10 +23,12 @@
         <module name="eureka-7001" />
         <module name="springboot-redis" />
         <module name="provider-8089" />
+        <module name="consumer-hystrix-dashboard" />
         <module name="provider-8088" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="config" target="1.8" />
       <module name="javaweb" target="1.8" />
       <module name="spring-boot" target="1.8" />
       <module name="springBoot" target="1.8" />
@@ -35,6 +37,8 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="config" options="" />
+      <module name="config-server-3344" options="" />
       <module name="consumer-8091" options="" />
       <module name="consumer-feign-8001" options="" />
       <module name="consumer-hystrix-dashboard" options="" />
