@@ -29,6 +29,8 @@
         <option value="$PROJECT_DIR$/provider-hystrix-8088/pom.xml" />
         <option value="$PROJECT_DIR$/consumer-hystrix-dashboard/pom.xml" />
         <option value="$PROJECT_DIR$/zuul-gateway-9527/pom.xml" />
+        <option value="$PROJECT_DIR$/config-service-3344/pom.xml" />
+        <option value="$PROJECT_DIR$/config-server-3344/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
