@@ -26,3 +26,4 @@ info:
   company.name: bgg
   build.artifactId: $project.artifactId$
   build.version: $project.version$
+
