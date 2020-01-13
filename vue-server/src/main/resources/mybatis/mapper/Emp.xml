@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bgg.vueserver.dao.EmpDao">
+    <select id="empList" resultType="com.bgg.vueserver.entity.Emp">
+        select * from emp;
+    </select>
+
+    <delete id="empDel" parameterType="int">
+        delete from emp where empId = #{empId};
+    </delete>
+
+    <select id="empQueryById" parameterType="int" resultType="com.bgg.vueserver.entity.Emp">
+        select * from emp where empId = #{empId};
+    </select>
+
+    <update id="empUpdate" parameterType="com.bgg.vueserver.entity.Emp">
+        update emp set empName = #{empName},sex = #{sex},age = #{age} where empId = #{empid};
+    </update>
+
+    <insert id="empSave" parameterType="com.bgg.vueserver.entity.Emp">
+        insert into emp(empName,sex,age) value (#{empName},#{sex},#{age});
+    </insert>
+</mapper>
+

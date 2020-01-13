@@ -44,6 +44,7 @@ class ArrayQueue {
         rear = -1;//指向队列尾的数据（即就是队列最后一个数据）
     }
 
+
     //判断队列是否满
     public boolean isFull(){
         return rear == maxSize - 1;

@@ -1,6 +1,7 @@
 package com.bgg.linkedList;
 
 import com.sun.org.apache.regexp.internal.RE;
+import javafx.stage.StageStyle;
 
 //单向链表模拟
 public class SingleLinkedListDemo{
@@ -15,7 +16,8 @@ public class SingleLinkedListDemo{
         singleLinkedList.addByNO(h2);
         singleLinkedList.update(h4);
         singleLinkedList.list();
-        singleLinkedList.size();
+        System.out.println("链表中共有数据："+singleLinkedList.size()+"条！");
+        singleLinkedList.getKNode(1);
     }
 }
 
@@ -112,18 +114,39 @@ class SingleLinkedList {
             temp = temp.next;
             sum++;
         }
-        System.out.println("链表中共有数据："+sum+"条！");
         return sum;
     }
 
-    public void reverse(){
+    //查单链表中倒数第K个节点
+    public HeroNode getKNode(int k){
         HeroNode temp = head;
-        if(size() != 0){
-            for(int i = 0; i<size()/2;i++){
+        boolean flag = true;
+        if(size() >= k && k > 0){
+            for(int i = 0;i<size()-k+1;i++){
                 temp = temp.next;
             }
+            System.out.println("链表中倒数第"+k+"个节点："+temp);
+            return temp;
+        }else{
+            System.out.println("链表中无此节点！");
+            return null;
         }
+    }
 
+    public HeroNode reverse(){
+        HeroNode temp = head;
+        HeroNode temp1;
+        HeroNode temp2;
+        for(int i = 0;i<size()/2;i++){
+            temp = temp.next;
+            temp1 = temp;
+            temp2 = getKNode(i+1);
+            temp = temp2;
+            temp2 = temp1;
+            add(temp1);
+            delete(i+1);
+        }
+        return temp;
     }
 
     public void list(){
