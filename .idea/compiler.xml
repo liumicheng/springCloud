@@ -12,13 +12,13 @@
         <module name="springboot-jsp" />
         <module name="provider-8090" />
         <module name="test-api" />
+        <module name="eureka-7003" />
         <module name="consumer-feign-8001" />
         <module name="config-server-3344" />
         <module name="mvc" />
         <module name="consumer-8091" />
-        <module name="springboot" />
         <module name="provider-hystrix-8088" />
-        <module name="eureka-7003" />
+        <module name="springboot" />
         <module name="eureka-7002" />
         <module name="eureka-7001" />
         <module name="springboot-redis" />
