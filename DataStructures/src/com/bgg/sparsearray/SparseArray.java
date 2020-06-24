@@ -52,7 +52,7 @@ public class SparseArray {
         //将稀疏数组转为二维数组
         int chessArr2[][] = new int[sparseArr[0][0]][sparseArr[0][1]];
         for(int i = 1;i<sparseArr.length;i++){
-                chessArr2[sparseArr[i][0]][sparseArr[i][1]] = sparseArr[i][2];
+            chessArr2[sparseArr[i][0]][sparseArr[i][1]] = sparseArr[i][2];
         }
         for(int[] row : chessArr2 ){
             for (int data : row){

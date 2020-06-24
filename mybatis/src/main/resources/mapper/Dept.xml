@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bgg.mybatis.dao.DeptDao">
+    <select id="queryById" parameterType="Integer" resultType="com.bgg.mybatis.entity.Dept">
+        select dept_id deptId,dept_name deptName from dept where dept_id = #{deptId}
+    </select>
+
+    <resultMap id="myDept" type="com.bgg.mybatis.entity.Dept">
+        <id column="deptId" property="deptId"></id>
+        <result column="deptName" property="deptName"></result>
+        <!-- collection: 定义集合类型的属性封装规则
+             ofType: 集合里面的元素类型
+        -->
+        <collection property="users" ofType="com.bgg.mybatis.entity.User">
+            <id column="userId" property="userId"></id>
+            <result property="userAge" column="age"></result>
+            <result property="userName" column="userName"></result>
+            <result property="userSex" column="sex"></result>
+        </collection>
+    </resultMap>
+
+    <select id="getDept" resultMap="myDept" parameterType="Integer">
+        select d.dept_id deptId,d.dept_name deptName,u.user_id userId,u.user_name userName,u.user_age age,u.user_sex sex from dept d left join user u  on d.dept_id = u.dept_id where d.dept_id = #{deptId}
+    </select>
+</mapper>
+

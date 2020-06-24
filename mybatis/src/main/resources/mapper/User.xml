@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bgg.mybatis.dao.UserDao">
+    <!-- 自定义映射规则 （当数据库列名和实体类中属性名不一致时可以使用）-->
+    <resultMap id="MyUser" type="com.bgg.mybatis.entity.User">
+        <!-- 主键   底层有优化-->
+        <id column="user_id" property="userId"></id>
+        <!-- 普通列-->
+        <result property="userAge" column="user_age"></result>
+        <result property="userName" column="user_name"></result>
+        <result property="userSex" column="user_sex"></result>
+        <!-- 若还有列未指定，则自动封装-->
+    </resultMap>
+    <select id="getUserList" resultMap="MyUser">
+        select * from user
+    </select>
+    <!-- 多表联查  使用级联属性封装-->
+    <resultMap id="userAndDept" type="com.bgg.mybatis.entity.User">
+        <id column="user_id" property="userId"></id>
+        <result property="userAge" column="user_age"></result>
+        <result property="userName" column="user_name"></result>
+        <result property="userSex" column="user_sex"></result>
+        <!--1.使用级联属性封装-->
+<!--        <result property="dept.deptId" column="dept_id"></result>-->
+<!--        <result property="dept.deptName" column="dept_name"></result>-->
+
+        <!--2.可以指定联合的JavaBean属性封装-->
+        <association property="dept" javaType="com.bgg.mybatis.entity.Dept">
+            <id column="dept_id" property="deptId"></id>
+            <result column="dept_name" property="deptName"></result>
+        </association>
+    </resultMap>
+
+    <select id="getUserAndDept" resultMap="userAndDept" parameterType="integer">
+        select u.user_id,u.user_name,u.user_age,u.user_sex,d.dept_id,d.dept_name from user u,dept d where u.dept_id = d.dept_id and u.dept_id = #{deptId}
+    </select>
+
+
+    <resultMap id="step" type="com.bgg.mybatis.entity.User">
+        <id column="user_id" property="userId"></id>
+        <result property="userAge" column="user_age"></result>
+        <result property="userName" column="user_name"></result>
+        <result property="userSex" column="user_sex"></result>
+        <!-- 分步查询：
+                使用select指定的接口中的方法，column为参数传入 来查出对象
+                对各参数传递：
+                    columu="{key1=A,key2=B......}"
+                延迟加载：（通常是用户和部门的信息一块都查询出来），开始之后延迟后：部门信息在被使用的时候才会加载
+                    fetchType="lazy" 否者 fetchType="eager"
+         -->
+<!--        <association property="dept" select="com.bgg.mybatis.dao.DeptDao.queryById" column="dept_id" fetchType="lazy">-->
+<!--        </association>-->
+
+        <!-- discriminator: 鉴别器
+           例子：
+               若性别为男显示所有
+               若为女 不显示部门，且userName改成编号
+       -->
+        <discriminator javaType="java.lang.String" column="user_sex">
+            <case value="男" resultType="com.bgg.mybatis.entity.User">
+                <association property="dept" select="com.bgg.mybatis.dao.DeptDao.queryById" column="dept_id">
+                </association>
+            </case>
+            <case value="女" resultType="com.bgg.mybatis.entity.User">
+                <result property="userName" column="user_id"></result>
+            </case>
+        </discriminator>
+
+    </resultMap>
+    <select id="queryStep" parameterType="Integer" resultMap="step">
+        select * from user where dept_id = #{deptId}
+    </select>
+
+
+
+    <!-- 动态sql-->
+    <select id="getUserByUser" resultType="com.bgg.mybatis.entity.User" parameterType="com.bgg.mybatis.entity.User">
+        select user_id userId,user_name userName,user_age userAge,user_sex userSex from user
+        <!-- 若含有and的作为第一个条件
+            1.where标签会自动去除and或者or and和or要放在条件首位
+            2.或者where 1 = 1  后边的条件全都带上and或or
+           -->
+<!-- 方法一 <where>-->
+<!--            <if test="userAge != 0">-->
+<!--                user_age = #{userAge}-->
+<!--            </if>-->
+<!--            <if test="userName != null and userName != ''">-->
+<!--                and user_name like "%"#{userName}"%"-->
+<!--            </if>-->
+<!--        </where>-->
+
+        <!--方法二
+            trim：自定义截取规则
+            prefix="":前缀
+            prefixOverrides=""：前缀覆盖
+            suffix=""：后缀
+            suffixOverrides="" ：后缀覆盖
+         -->
+        <trim prefix="where" suffixOverrides="and">
+            <if test="userAge != 0">
+                user_age = #{userAge} and
+            </if>
+            <if test="userName != null and userName != ''">
+                user_name like "%"#{userName}"%"
+            </if>
+        </trim>
+
+    </select>
+
+
+    <select id="getUserByChoose" resultType="com.bgg.mybatis.entity.User" parameterType="com.bgg.mybatis.entity.User">
+        select user_id userId,user_name userName,user_age userAge,user_sex userSex from user
+        <where>
+            <!-- 相当于seitch-case -->
+            <choose>
+                <when test="userAge != 0">
+                    user_age = #{userAge}
+                </when>
+                <when test="userName != null and userName != ''">
+                    user_name like "%"#{userName}"%"
+                </when>
+                <otherwise>
+                    1 = 1
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <update id="updateUserBySet" parameterType="com.bgg.mybatis.entity.User">
+        update user
+        <!-- set 把最后多余的“，”清除-->
+        <set>
+            <if test="userName != null and userName != ''">
+                user_name = #{userName},
+            </if>
+            <if test="userAge != 0">
+                user_age = #{userAge},
+            </if>
+            <if test="userSex != null and userSex != ''">
+                user_sex = #{userSex}
+            </if>
+        </set>
+        <where>
+            user_id = #{userId}
+        </where>
+    </update>
+
+    <select id="queryByItem" parameterType="list" resultType="com.bgg.mybatis.entity.User">
+        select user_id userId,user_name userName,user_age userAge,user_sex userSex from user
+        <where>
+            user_id in
+        </where>
+        <!--
+            collection:指定要遍历的集合
+                    list类型的参数会封装在map中，key就叫list
+            item：将遍历出的元素复制给指定的变量
+            separator：每个元素之间的分隔符
+            open：遍历出的所有结果拼接一个开始的字符
+            close：遍历出的所有结果拼接一个结束的字符
+            index：索引 遍历list时 index是索引 item就是当前值
+                    遍历map时 index是key   item是value
+        -->
+        <foreach collection="list" item="userId" separator="," index="i" open="(" close=")">
+            #{userId}
+        </foreach>
+    </select>
+
+    <!-- 批量保存
+        values (),(),()
+    -->
+    <insert id="saveUserByItem" parameterType="list">
+        insert into user(user_id,user_name,user_age,user_sex,dept_id) values
+        <foreach collection="list" item="user" separator=",">
+            (#{user.userId},#{user.userName},#{user.userAge},#{user.userSex},#{user.dept.deptId})
+        </foreach>
+    </insert>
+
+<!--    方式二：
+        <insert id="saveUserByItem" parameterType="list">-->
+<!--        <foreach collection="list" item="user" separator=";">-->
+<!--            insert into user(user_id,user_name,user_age,user_sex,dept_id) values-->
+<!--            (#{user.userId},#{user.userName},#{user.userAge},#{user.userSex},#{user.dept.deptId})-->
+<!--        </foreach>-->
+<!--    </insert>-->
+
+</mapper>
+

@@ -60,6 +60,7 @@ class SingleLinkedList {
             temp = temp.next;
         }
         if(flag){
+            //排序互换
             heroNode.next = temp.next;
             temp.next = heroNode;
         }
